@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "telegram-message-relayer"
+version = "0.1.0"
+description = ""
+authors = ["nnnLik <rslmakhmudov@gmail.com>"]
+readme = "README.md"
+packages = [{include = "telegram_message_relayer"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.2.4"
+python-decouple = "^3.8"
+djangorestframework = "^3.14.0"
+django-filter = "^23.2"
+drf-yasg = "^1.21.7"
+django-cors-headers = "^4.2.0"
+psycopg2-binary = "^2.9.7"
+djoser = "^2.2.0"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
