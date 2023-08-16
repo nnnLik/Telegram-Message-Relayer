@@ -3,7 +3,7 @@ import logging
 
 from django.contrib.auth.models import User
 
-from src.core.models import TelegramToken
+from src.core.models import MessageHistory, TelegramToken
 from src.tg_bot.services.services import send_message_async
 
 logger = logging.getLogger(__name__)
@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 
 class MessageServices:
     def send_message(self, user: User, msg: str) -> bool:
+        is_sended: bool | None = None
         telegram_token: TelegramToken = self._get_data(user)
 
         chat_id: int = telegram_token.chat_id
@@ -22,8 +23,11 @@ class MessageServices:
             self.__run_send_message_async(chat_id=chat_id, message=final_msg)
         except Exception as e:
             logger.critical(f"Error sending message: {e}")
-            return False
-        return True
+            is_sended: bool = False
+        is_sended: bool = True
+
+        if is_sended:
+            self._save_msg_to_history(user, chat_id, msg)
 
     def _get_data(self, user: User) -> TelegramToken:
         return TelegramToken.objects.get(user=user)
@@ -41,3 +45,10 @@ class MessageServices:
             )
         )
         loop.close()
+
+    def _save_msg_to_history(self, user: User, chat_id: int, msg: str) -> None:
+        MessageHistory.objects.create(
+            user=user,
+            content=msg,
+            chat_id=chat_id,
+        )

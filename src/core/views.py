@@ -11,7 +11,12 @@ from rest_framework import status
 from src.base.services.token import TokenServices
 from src.base.services.msg import MessageServices
 
-from .serializers import SendTelegramMessageSerializer, TelegramTokenSerializer
+from .models import MessageHistory
+from .serializers import (
+    MessageHistorySerializer,
+    SendTelegramMessageSerializer,
+    TelegramTokenSerializer,
+)
 
 
 class GetGeneratedTokenView(generics.CreateAPIView):
@@ -47,3 +52,12 @@ class SendMessageView(generics.CreateAPIView):
             {"message": "Your message was not delivered."},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
+
+
+class GetMessageHistory(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = MessageHistorySerializer
+
+    def get_queryset(self):
+        user: User = self.request.user
+        return MessageHistory.objects.filter(user=user)
