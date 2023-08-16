@@ -1,7 +1,0 @@
-{
-  "start": "Welcome to the Message Relayer Bot!\nPlease send your token in the following format:\n/token <token>",
-  "help": "This is a simple bot that relays your messages to a Telegram bot.\nTo get started, use the /token command to provide your token which was generated in your personal profile.",
-  "token_updated_successfully": "Token status updated successfully",
-  "token_updating_failed": "Invalid format. Please use /token your_token",
-  "send_message_error": "An error occurred while updating token status. Please try again later."
-}
