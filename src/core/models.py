@@ -6,7 +6,7 @@ class TelegramToken(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     token = models.CharField(max_length=256, unique=True)
     is_active = models.BooleanField(default=False)
-    chat_id = models.CharField(max_length=256, blank=True, null=True)
+    chat_id = models.PositiveIntegerField(blank=True, null=True)
     tg_username = models.CharField(max_length=256, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -23,7 +23,8 @@ class TelegramToken(models.Model):
 
 class MessageHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    message = models.TextField()
+    content = models.TextField()
+    chat_id = models.PositiveIntegerField()
     sended_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
