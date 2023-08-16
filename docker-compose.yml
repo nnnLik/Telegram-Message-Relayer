@@ -14,10 +14,11 @@ services:
 
   server:
     restart: always
-    build: .
+    build:
+      context: ./server
     container_name: server
     volumes:
-      - .:/usr/src/app/
+      - ./server:/usr/src/app/
     ports:
       - "8000:8000"
     env_file:
@@ -29,6 +30,19 @@ services:
       python manage.py makemigrations --noinput &&
       python manage.py migrate  --noinput &&
       python manage.py runserver 0.0.0.0:8000"
+
+  bot:
+    restart: always
+    build:
+      context: ./tg-bot
+    container_name: tg-bot
+    volumes:
+      - ./tg-bot:/usr/src/app/
+    env_file:
+      - ./.env
+    depends_on:
+      - server
+    command: python main.py
 
 volumes:
   db-data:
