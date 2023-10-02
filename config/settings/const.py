@@ -19,3 +19,5 @@ DB_USER: str = config("DB_USER")
 DB_PASSWORD: str = config("DB_PASSWORD")
 DB_HOST: str = config("DB_HOST")
 DB_PORT: int = config("DB_PORT")
+
+TG_API_TOKEN: str = config("TG_API_TOKEN")

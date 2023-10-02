@@ -26,9 +26,23 @@ services:
       - database
     command: >
       sh -c "
-      python manage.py makemigrations --noinput &&
       python manage.py migrate  --noinput &&
       python manage.py runserver 0.0.0.0:8000"
+
+  # bot:
+  #   restart: always
+  #   build:
+  #     context: ./tg-bot
+  #   container_name: tg-bot
+  #   volumes:
+  #     - ./tg-bot:/usr/src/app/
+  #   env_file:
+  #     - ./.env
+  #   depends_on:
+  #     - server
+  #   command: python main.py
+  #   networks:
+  #     - app-network
 
 volumes:
   db-data:

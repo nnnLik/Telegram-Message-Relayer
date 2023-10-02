@@ -11,10 +11,10 @@ urlpatterns = [
     path("auth/", include("djoser.urls")),
     path("auth/", include("djoser.urls.jwt")),
     path("admin/", admin.site.urls),
-    # path("api/", include(routes)),
+    path("api/", include(routes)),
     path(
         "swagger/",
         schema_view.with_ui("swagger"),
         name="schema-swagger-ui",
-    )
+    ),
 ]

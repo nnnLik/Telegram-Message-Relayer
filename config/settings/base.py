@@ -21,6 +21,9 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_filters",
     "drf_yasg",
+    "src.core",
+    "src.tg_bot",
+    "src.base",
 ]
 
 TEMPLATES = [
